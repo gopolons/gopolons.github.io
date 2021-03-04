@@ -28,10 +28,10 @@
                 <div class="block-header_title">
                     Воплощаем ваши безумные<br> идеи в реальность
                 </div>
-                <div class="block-header_desc">
+                <div class="block-header_desc objs">
                     Изготовление 3D-фигурки человека — это шанс<br> воплотить в реальность мгновения, которые мы<br> бережно храним в памяти
                 </div>
-                <div class="block-header_button">
+                <div class="block-header_button objs">
                     <button @click="goTo('threed')">
                         3D печать
                     </button>
@@ -52,7 +52,7 @@
     </section>
     <section id="threed" ref="threed" class="block block-1">
         <div class="block-header_wave-text">
-            <span>Так что же такое</span> <div><span style="color: #09ad90;margin-left:8px">3D печать</span>?</div>
+            <span style="margin-bottom: auto; margin-top: auto;" class="objs">Так что же такое</span> <div class="objs" style="margin-bottom: auto; margin-top: auto;"><span class="objs" style="color: #09ad90;margin-left:8px">3D печать</span>?</div>
         </div>
         <div class="threed-block">
             <div class="threed-block_circles">
@@ -62,7 +62,7 @@
                             <img :src="`./images/${t.icon}`"  :alt="t.icon"/>
                         </div>
                     </div>
-                    <div class="threed-block_text">
+                    <div class="threed-block_text objs">
                         {{ t.title }}
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     </transition>
                 </div>
                 <div class="threed-block_info">
-                    <div class="threed-block_text-head">
+                    <div class="threed-block_text-head objs">
                         {{ threed[threedCur-1].title }}
                     </div>
                     <div v-for="t in threed" :key="t.id" class="threed-block_info-text">
@@ -113,10 +113,10 @@
                     <button id="myBtn" class="swiper-wrapper__card">
                         <div class="slide-header">
                             <img type="image" class="swiper-heh" :src="`./images/slider/${s.image}`" :alt="s.image">
-                            <div class='swiper-wrapper__card__title'>{{s.title}}</div>
+                            <div class='swiper-wrapper__card__title objs'>{{s.title}}</div>
                             <div class="linkarrow">&#8594;</div>
                         </div>
-                        <p class="slide-footer">{{s.description}}</p>
+                        <p class="slide-footer objs">{{s.description}}</p>
                     </button>
                 </div>
             </div>
@@ -145,8 +145,8 @@
                     </div>
                 </div>
                 <div class="modal-content-info">
-                    <h3 class="modal-content-info__title">{{ slideData.title }}</h3>
-                    <p class="modal-content-info__text">{{ slideData.description }}</p> 
+                    <h3 class="modal-content-info__title objs">{{ slideData.title }}</h3>
+                    <p class="modal-content-info__text objs">{{ slideData.description }}</p> 
                 </div>                
             </div>
         </div>
@@ -157,10 +157,10 @@
     <section class="block block-prices">
         <div class="price_wrap">
             <div class="price_header-btns">
-                <div @click="changePrices(1)" :class="'price_header-btn price_header-left ' + (chosenPrices.id === 1 && 'chosen')">
+                <div class="eurx" @click="changePrices(1)" :class="'price_header-btn price_header-left ' + (chosenPrices.id === 1 && 'chosen')">
                     ФДМ печать
                 </div>
-                <div @click="changePrices(2)" :class="'price_header-btn price_header-right ' + (chosenPrices.id === 2 && 'chosen')">
+                <div class="eurx" @click="changePrices(2)" :class="'price_header-btn price_header-right ' + (chosenPrices.id === 2 && 'chosen')">
                     Фотополимерная печать
                 </div>
             </div>
@@ -175,8 +175,8 @@
                 </div>
                 <div class="price_buttons">
                     <div v-for="b in chosenPrices.content" :key="b.id" class="price_button-block">
-                        <div class="price_title">{{b.title}}</div>
-                        <button :class="innerPrices === b.id ? 'chosen' : ''" @click="rotatePricesImages(b.id)">от {{b.price}} за гр.</button>
+                        <div class="price_title objs">{{b.title}}</div>
+                        <button class="objs" :class="innerPrices === b.id ? 'chosen' : ''" @click="rotatePricesImages(b.id)">от {{b.price}} за гр.</button>
                     </div>
                 </div>
             </div>
@@ -185,10 +185,10 @@
     <section class="block">
         <div class="form-wrap">
             <form class="form">
-                <div class="form_header">Форма заполнения</div>
+                <div class="form_header objs">Форма заполнения</div>
                 <div class="form_fields">
                     <div class="form_field">
-                        <div class="form_field-name">
+                        <div class="form_field-name objs">
                             Введите ваше имя:
                         </div>
                         <div class="form_field-input">
@@ -196,7 +196,7 @@
                         </div>
                     </div>
                     <div class="form_field">
-                        <div class="form_field-name">
+                        <div class="form_field-name objs">
                             Введите ваш номер телефона или E-mail:
                         </div>
                         <div class="form_field-input">
@@ -217,24 +217,24 @@
         <div id="map"></div>
         <div class="map-info_wrap">
             <div class="map-info_block">
-                <div class="map-info_title">
+                <div class="map-info_title objs">
                     Режим работы
                 </div>
                 <div class="map-info_items">
-                    <div class="map-info_item">
+                    <div class="map-info_item objs">
                         <img src="./images/time.svg" alt="mark"/> Ежедневно без выходных с 12:00 до 20:00
                     </div>
                 </div>
             </div>
             <div class="map-info_block">
-                <div class="map-info_title">
+                <div class="map-info_title objs">
                     Адрес
                 </div>
                 <div class="map-info_items">
-                    <div class="map-info_item">
+                    <div class="map-info_item objs">
                         <img src="./images/mark.svg" alt="mark"/> г. Москва, ул. Пушкина, д. 14
                     </div>
-                    <div class="map-info_item">
+                    <div class="map-info_item objs">
                         <img src="./images/mark.svg" alt="mark"/> г. Москва, ул. Калатушкина, д. 88
                     </div>
                 </div>

@@ -1,6 +1,40 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://unpkg.com/swiper/swiper-bundle.min.css");
 
+@font-face {
+    font-family: 'Europe Ext';
+    src: url('/fonts/EuropeExtBold.eot');
+    src: url('/fonts/EuropeExtBold.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/EuropeExtBold.woff2') format('woff2'),
+        url('/fonts/EuropeExtBold.woff') format('woff'),
+        url('/fonts/EuropeExtBold.ttf') format('truetype'),
+        url('/fonts/EuropeExtBold.svg#EuropeExtBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+.eurx {
+    font-family: "Europe Ext";
+}
+
+@font-face {
+    font-family: 'Object Sans';
+    src: url('/fonts/ObjectSans-Regular.eot');
+    src: url('/fonts/ObjectSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/ObjectSans-Regular.woff2') format('woff2'),
+        url('/fonts/ObjectSans-Regular.woff') format('woff'),
+        url('/fonts/ObjectSans-Regular.ttf') format('truetype'),
+        url('/fonts/ObjectSans-Regular.svg#ObjectSans-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.objs {
+    font-family: "Object Sans";
+}
+
 @keyframes move_wave {
     0% {
         transform: translateX(0) translateZ(0) scaleY(1)
@@ -144,12 +178,12 @@ img {
 }
 
 .block-header_title {
-    font-size: 95px;
+    font-size: 75px;
     line-height: 90px;
     letter-spacing: 0.01em;
     font-weight: 900;
-    font-style: italic;
     color: #fff;
+    font-family: "Europe Ext";
 }
 
 .block-header_desc {
