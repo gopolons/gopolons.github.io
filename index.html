@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Лендос</title>
+    <link href="index.css?_=2020.7" rel="stylesheet" />
+    <link href="mobile.css?_=2020.27" rel="stylesheet" />
+    <!-- additional "price" block -->
+    <link href="price.css?_=2020.18" rel="stylesheet" />
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=6463f77c-c580-443a-8d38-a9b2ff5db57f&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+<div id="app">
+    <section class="block block-header">
+        <div class="block-header_wrap">
+            <div class="header-links">
+                <div class="header-link">
+                    <div class="header-logo">
+                    </div>
+                </div>
+                <div class="header-link header-link_right">
+                    <div class="header-link_phone"><a :href="`tel:${links.wu}`"><div class="header-link_phone-icon"></div>{{ links.phone }}</a></div>
+                </div>
+            </div>
+            <div class="block-header_block">
+                <div class="block-header_title">
+                    Воплощаем ваши безумные<br> идеи в реальность
+                </div>
+                <div class="block-header_desc">
+                    Изготовление 3D-фигурки человека — это шанс<br> воплотить в реальность мгновения, которые мы<br> бережно храним в памяти
+                </div>
+                <div class="block-header_button">
+                    <button @click="goTo('threed')">
+                        3D печать
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="block-header_wave">
+            <div class="block-header_wave-svg">
+                <!-- div class="wave" style="background-image: url('https://front-end-noobs.com/jecko/img/wave-mid.png'); background-size: 50% 60px; animation: move_wave 0s linear infinite;">
+
+                </div -->
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M-0.000488281 -0.000244141L60.0412 16.5494C120.083 33.8872 240.166 67.7746 360.249 62.258C480.333 56.7415 600.416 11.0329 720.499 16.5494C840.583 22.066 960.666 78.8077 1080.75 90.6289C1200.83 101.662 1320.92 67.7746 1380.96 50.4368L1441 33.8872L1441 346.5H1380.96C1320.92 346.5 1200.83 346.5 1080.75 346.5C960.666 346.5 840.583 346.5 720.499 346.5C600.416 346.5 500.936 346.5 360.249 346.5C243.011 346.5 60.0412 346.5 60.0412 346.5H-0.000488281L-0.000488281 -0.000244141Z" fill="#FFFFFF"/>
+                </svg> -->
+                <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs></defs><path id="waveP" d=""/></svg>
+            </div>
+        </div>
+    </section>
+    <section id="threed" ref="threed" class="block block-1">
+        <div class="block-header_wave-text">
+            <span>Так что же такое</span> <div><span style="color: #09ad90;margin-left:8px">3D печать</span>?</div>
+        </div>
+        <div class="threed-block">
+            <div class="threed-block_circles">
+                <div v-for="t in threed" :key="t.id" :class="`threed-block_circles-wrap ${t.id === threedCur && 'threed-block_circles-current'}`" @click="threedCur = t.id">
+                    <div class="threed-block_circle">
+                        <div class="threed-block_circle-help">
+                            <img :src="`./images/${t.icon}`"  :alt="t.icon"/>
+                        </div>
+                    </div>
+                    <div class="threed-block_text">
+                        {{ t.title }}
+                    </div>
+                </div>
+            </div>
+            <div class="threed-block_info-wrap">
+                <div v-for="t in threed" :key="`heh-${t.id}`" class="threed-block_info-trap">
+                    <transition name="fade">
+                        <div v-if="threedCur === t.id" :style="`background-image: url('./images/${t.src}');`"></div>
+                    </transition>
+                </div>
+                <div class="threed-block_info">
+                    <div class="threed-block_text-head">
+                        {{ threed[threedCur-1].title }}
+                    </div>
+                    <div v-for="t in threed" :key="t.id" class="threed-block_info-text">
+                        <transition name="fade">
+                            <div v-if="threedCur === t.id" class="threed-block_info-current" v-html="t.text"></div>
+                        </transition>
+                    </div>
+                    <div class="threed-block_info-arr">
+                        <div><span style="display: inline-flex; width: 14px; justify-content: center">{{ threedCur }}</span> ИЗ {{ threed.length }}</div>
+                        <div class="threed-block_info-ctrl">
+                            <div    @click="threedCur > 1 && threedCur--"
+                                    :class="`threed-block_info-arrow threed-block_info-left ${ threedCur === 1 && 'threed-block_info-inactive' }`">
+                                <div>
+                                    <img src="./images/arrow.svg" alt="left" />
+                                </div>
+                            </div>
+                            <div    @click="threedCur < threed.length && threedCur++"
+                                    :class="`threed-block_info-arrow threed-block_info-right ${ threedCur === threed.length && 'threed-block_info-inactive' }`">
+                                <div>
+                                    <img src="./images/arrow.svg" alt="right" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="block block-2">
+        <div class="b2-head">
+            <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs></defs><path id="waveS1" d=""/></svg>
+        </div>
+        <div class="swiper-container swiper1">
+            <div id="myBtn" class="swiper-wrapper">
+                <div v-for="(s, i) in slides" :key="i" class="swiper-slide swiper-slide1" on>
+                    <button id="myBtn" class="swiper-wrapper__card">
+                        <div class="slide-header">
+                            <img type="image" class="swiper-heh" :src="`./images/slider/${s.image}`" :alt="s.image">
+                            <div class='swiper-wrapper__card__title'>{{s.title}}</div>
+                            <div class="linkarrow">&#8594;</div>
+                        </div>
+                        <p class="slide-footer">{{s.description}}</p>
+                    </button>
+                </div>
+            </div>
+            <div class="swiper-pagination swiper-pagination1"></div>
+            <div class="swiper-button-prev swiper-button-prev1"></div>
+            <div class="swiper-button-next swiper-button-next1"></div>
+        </div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+        <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="modal-content-image">
+                    <!-- Modal slider -->
+                    <div id="slider-image" class="swiper-container swiper2">
+                        <div class="swiper-wrapper">
+                            <!-- Counts from 0-3 and spawns 3 slides -->
+                            <div v-for="(x) in Array(3).keys()" :key="x" class="swiper-slide" on>
+                                <!-- Takes images from slide_ folder -->
+                                <img id="slider-image" :src="`./images/slider/slide_${slideData.id+1}/img${x+1}.jpg`" :alt="slideData.image">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination swiper-pagination2"></div>
+                        <div class="swiper-button-prev swiper-button-prev2"></div>
+                        <div class="swiper-button-next swiper-button-next2"></div>
+                    </div>
+                </div>
+                <div class="modal-content-info">
+                    <h3 class="modal-content-info__title">{{ slideData.title }}</h3>
+                    <p class="modal-content-info__text">{{ slideData.description }}</p> 
+                </div>                
+            </div>
+        </div>
+        <div class="b2-foot">
+            <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs></defs><path id="waveS2" d=""/></svg>
+        </div>
+    </section>
+    <section class="block block-prices">
+        <div class="price_wrap">
+            <div class="price_header-btns">
+                <div @click="changePrices(1)" :class="'price_header-btn price_header-left ' + (chosenPrices.id === 1 && 'chosen')">
+                    ФДМ печать
+                </div>
+                <div @click="changePrices(2)" :class="'price_header-btn price_header-right ' + (chosenPrices.id === 2 && 'chosen')">
+                    Фотополимерная печать
+                </div>
+            </div>
+            <div class="price_block">
+                <div class="price_images">
+                    <transition-group name="list">
+                        <div v-for="p in chosenImages.list" :key="p.src" class="price_image">
+                            <div class="price_image-src" :style="`background-image: url('./images/${p.src}');`  + (currentPrices === 2 && `top: 0; left: 0;`)"></div>
+                        </div>
+                    </transition-group>
+                    <div class="price_image-text">{{ chosenText }}</div>
+                </div>
+                <div class="price_buttons">
+                    <div v-for="b in chosenPrices.content" :key="b.id" class="price_button-block">
+                        <div class="price_title">{{b.title}}</div>
+                        <button :class="innerPrices === b.id ? 'chosen' : ''" @click="rotatePricesImages(b.id)">от {{b.price}} за гр.</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="block">
+        <div class="form-wrap">
+            <form class="form">
+                <div class="form_header">Форма заполнения</div>
+                <div class="form_fields">
+                    <div class="form_field">
+                        <div class="form_field-name">
+                            Введите ваше имя:
+                        </div>
+                        <div class="form_field-input">
+                            <input name="name" placeholder="Ваше имя..." />
+                        </div>
+                    </div>
+                    <div class="form_field">
+                        <div class="form_field-name">
+                            Введите ваш номер телефона или E-mail:
+                        </div>
+                        <div class="form_field-input">
+                            <input name="contact" placeholder="Номер телефона или E-mail..." />
+                        </div>
+                    </div>
+                </div>
+                <div class="form_fields">
+                    <textarea name="message" placeholder="Сообщение..."></textarea>
+                </div>
+                <div class="form-btn">
+                    <button>Отправить</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="block block-3">
+        <div id="map"></div>
+        <div class="map-info_wrap">
+            <div class="map-info_block">
+                <div class="map-info_title">
+                    Режим работы
+                </div>
+                <div class="map-info_items">
+                    <div class="map-info_item">
+                        <img src="./images/time.svg" alt="mark"/> Ежедневно без выходных с 12:00 до 20:00
+                    </div>
+                </div>
+            </div>
+            <div class="map-info_block">
+                <div class="map-info_title">
+                    Адрес
+                </div>
+                <div class="map-info_items">
+                    <div class="map-info_item">
+                        <img src="./images/mark.svg" alt="mark"/> г. Москва, ул. Пушкина, д. 14
+                    </div>
+                    <div class="map-info_item">
+                        <img src="./images/mark.svg" alt="mark"/> г. Москва, ул. Калатушкина, д. 88
+                    </div>
+                </div>
+            </div>
+            <div class="map-info_block">
+
+            </div>
+        </div>
+        <div class="map-waves">
+            <div class="map-wave">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 340">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1440 -0.000244141L1392 11.9998C1344 23.9998 1248 47.9998 1152 89.9998C1056 132 959.999 192 864 192C768 192 672 132 575.999 132C479.999 132 384 192 288 192C192 192 95.9995 132 47.9995 102L-0.000488281 71.9998V288H47.9995C95.9995 288 192 288 288 288C384 288 479.999 288 575.999 288C672 288 768 288 864 288C959.999 288 1056 288 1152 288C1248 288 1344 288 1392 288H1440V-0.000244141Z" fill="#09AD90"/>
+                </svg>
+            </div>
+            <div class="map-wave">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M-0.000488281 -0.000244141L60.0412 16.5494C120.083 33.8872 240.166 67.7746 360.249 62.258C480.333 56.7415 600.416 11.0329 720.499 16.5494C840.583 22.066 960.666 78.8077 1080.75 90.6289C1200.83 101.662 1320.92 67.7746 1380.96 50.4368L1441 33.8872L1441 346.5H1380.96C1320.92 346.5 1200.83 346.5 1080.75 346.5C960.666 346.5 840.583 346.5 720.499 346.5C600.416 346.5 500.936 346.5 360.249 346.5C243.011 346.5 60.0412 346.5 60.0412 346.5H-0.000488281L-0.000488281 -0.000244141Z" fill="#6A2EA6"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-wrap">
+            <div class="footer-info">
+                3D Magic — это шанс воплотить в реальность мгновения, которые мы бережно храним в памяти, остановить время, когда мы счастливы, когда мы любим и любимы.
+            </div>
+            <div class="footer-contacts">
+                <div class="footer-contacts_block">
+                    <div class="footer-contacts_title">
+                        Способы связи
+                    </div>
+                    <div class="footer-contacts_items">
+                        <div class="footer-contacts_item">
+                            <a :href="`mailto:${links.mail}`"><img src="./images/mail.svg" alt="mail" />{{ links.mail }}</a>
+                        </div>
+                        <div class="footer-contacts_item">
+                            <a :href="`tel:${links.phone}`"><img src="./images/phone_foot.svg" alt="mail" />{{ links.phone }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-contacts_block">
+                    <div class="footer-contacts_links">
+                        <div class="footer-contacts_link">
+                            <a :href="`https://instagram.com/${links.ig}`" target="_blank"><img src="./images/instagram.svg" alt="instagram" /></a>
+                        </div>
+                        <div class="footer-contacts_link">
+                            <a :href="`whatsapp://send?text=Hello&phone=${links.wu}&abid=${links.wu}`" target="_blank"><img src="./images/whatsup.svg" alt="whatsup" /></a>
+                        </div>
+                        <div class="footer-contacts_link">
+                            <a :href="`https://t.me/${links.tg}`" target="_blank"><img src="./images/telegram.svg" alt="telegram" /></a>
+                        </div>
+                        <div class="footer-contacts_link">
+                            <a :href="`https://vk.com/${links.vk}`" target="_blank"><img src="./images/vk.svg" alt="vk" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-contacts_block">
+                    &copy;2020 Copyright
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="./js/jquery-3.5.1.min.js"></script>
+<script src="./js/jquery.scrollTo.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
+<!-- Wavify -->
+<script src="./js/wavify.js"></script>
+<script src="./js/jquery.wavify.js"></script>
+<script>
+    const APP = new Vue({
+        el: "#app",
+        data() {
+            return {
+                threed: [
+                    {"id": 1, "icon": "statue.svg", "src": "itsatrap.png", "title": "Коллекционные фигурки", "text": "Миниатюрная 3D-копия – это оригинальный подарок по любому поводу, будь то праздник или желание подарить что-то приятное и эмоциональное. Мы изготавливаем 3D-фигурки по фотографии в любом масштабе, пропорциях и цветовой гамме."},
+                    {"id": 2, "icon": "cogs.svg", "src": "astolfo.jpg", "title": "Редкие детали", "text": "С другой стороны укрепление и развитие структуры влечет за собой процесс внедрения и модернизации дальнейших направлений развития. Равным образом новая модель организационной деятельности влечет за собой процесс внедрения и модернизации дальнейших направлений развития. "},
+                    {"id": 3, "icon": "house.svg", "src": "gachi2.jpg", "title": "Интерьерные эксклюзивы", "text": "Идейные соображения высшего порядка, а также сложившаяся структура организации влечет за собой процесс внедрения и модернизации систем массового участия. Не следует, однако забывать, что дальнейшее развитие различных форм деятельности требуют от нас анализа новых предложений. "},
+                    {"id": 4, "icon": "dots.svg", "src": "anime.jpg", "title": "Индивидуальные заказы", "text": "Не следует, однако забывать, что постоянный количественный рост и сфера нашей активности способствует подготовки и реализации форм развития. Разнообразный и богатый опыт дальнейшее развитие различных форм деятельности играет важную роль в формировании систем массового участия. "}
+                ],
+                threedCur: 1,
+                slides: [
+                    {
+                        id: 4,
+                        image: "slide-5.jpg",
+                        title: "Прекрасное аниме номер 5",
+                        description: "Lorem ipsum 5"
+                    },
+                    {
+                        id: 0,
+                        image: "slide-1.jpg",
+                        title: "Прекрасное аниме номер 1",
+                        description: "Lorem ipsum 1",
+                    },
+                    {
+                        id: 1,
+                        image: "slide-2.jpg",
+                        title: "Прекрасное аниме номер 2",
+                        description: "Lorem ipsum 2"
+                    },
+                    {
+                        id: 2,
+                        image: "slide-3.jpeg",
+                        title: "Прекрасное аниме номер 3",
+                        description: "Lorem ipsum 3"
+                    },
+                    {
+                        id: 3,
+                        image: "slide-4.jpeg",
+                        title: "Прекрасное аниме номер 4",
+                        description: "Lorem ipsum 4"
+                    }
+                ],
+                currentSlideID: 1,      
+                links: {
+                    phone: "+7 900 00 00",
+                    mail: "iognsdongj@mail.ru",
+                    vk: "3dmagic",
+                    tg: "3dmagic",
+                    wu: "+79000000",
+                    ig: "3dmagic"
+                },
+                prices: [
+                    {
+                        id: 1,
+                        content: [
+                            {id: 1, price: "100", title: "Низкая скорость"}, {id: 2, price: "200", title: "Средняя скорость"}, {id: 3, price: "300", title: "Высокая скорость"}
+                        ]
+                    },
+                    {
+                        id: 2,
+                        content: [
+                            {id: 1, price: "1000", title: "Стоимость"}
+                        ]
+                    },
+                ],
+                pricesImages: [
+                    {id: 1, list: [{id: 1, src: "itsatrap.png", text: "Какой-то текст"}, {id: 2, src: "astolfo.jpg", text: "Какой-то текст 2"}, {id: 3, src: "anime.jpg", text: "Какой-то текст 3"}]},
+                    {id: 2, list: [{id: 1, src: "gachi2.jpg", text: "Какой-то текст 4"}]}
+                ],
+                currentPrices: 1,
+                innerPrices: 3,
+                chosenText: "Какой-то текст 3",
+            }
+        },
+        methods: {
+            goTo(refName) {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#" + refName).offset().top
+                }, 750);
+            },
+            rotatePricesImages(v, t = false) {
+                if(this.innerPrices !== v || t) {
+                    this.innerPrices = v;
+                    const temp = this.chosenImages.list.find(p => p.id === v)
+                    this.chosenImages.list = this.chosenImages.list.filter(p => p.id !== v)
+                    setTimeout(() => {
+                        this.chosenImages.list.push(temp);
+                        this.chosenText = temp.text;
+                    }, 200)
+                }
+            },
+            changePrices(v) {
+                this.innerPrices = v === 1 ? 3 : 1;
+                this.currentPrices = v;
+                this.rotatePricesImages(this.innerPrices, true)
+            },
+
+        },
+        computed: {
+            chosenPrices() {
+                return this.prices.find(pr => pr.id === this.currentPrices)
+            },
+            chosenImages() {
+                return this.pricesImages.find(pr => pr.id === this.chosenPrices.id)
+            },
+            slideData() {
+                return this.slides.find(pr => pr.id === this.currentSlideID)
+            }
+        },
+        mounted() {
+            let perV;
+            let zoom;
+
+            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+                perV = 1
+                zoom = 9;
+            } else {
+                perV = 4
+                zoom = 11;
+            }
+
+            let mySwiper = new Swiper('.swiper1', {
+                direction: 'horizontal',
+                loop: true,
+                autoplay: true,
+                speed: 1000,
+                spaceBetween: 0,
+                slidesPerView: perV,
+                pagination: {
+                    el: '.swiper-pagination1',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next1',
+                    prevEl: '.swiper-button-prev1',
+                },
+            });
+
+            // Reset swiper upon reaching the end
+            mySwiper.on('reachEnd', function() {
+                if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+                    void 0;
+                } else {
+                    mySwiper.slideTo(2, 0);
+                    APP.currentSlideID = (mySwiper.realIndex - 1)
+                }
+                });
+
+            // Swiper current index 
+            mySwiper.on('click', function() {
+                if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+                    if ((mySwiper.realIndex - 1) < 0) {
+                        APP.currentSlideID = 4; 
+                    } else {
+                        APP.currentSlideID = (mySwiper.realIndex - 1);
+                    }
+            } else {
+                    var cs = mySwiper.clickedIndex - 1;
+                    var as = mySwiper.activeIndex;
+                if (cs > as) {
+                    mySwiper.slideTo(cs, 1000);
+                    APP.currentSlideID = mySwiper.realIndex;
+                } else if (cs < as) {
+                    mySwiper.slideTo(cs, 1000);
+                    APP.currentSlideID = mySwiper.realIndex;
+                } else if (cs = as) {
+                    APP.currentSlideID = mySwiper.realIndex;
+                }
+            }   
+            });
+
+            // Modal swiper
+            let swiperSecondary = new Swiper('.swiper2', {
+                observer: true,
+                observeParents: true,
+                direction: 'horizontal',
+                autoplay: true,
+                speed: 1000,
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination2',
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next2',
+                    prevEl: '.swiper-button-prev2',
+                },
+            });
+
+            ymaps.ready(init);
+            function init(){
+                // Создание карты.
+                let myMap = new ymaps.Map("map", {
+                    center: [55.76, 37.64],
+                    zoom: zoom
+                });
+
+                let address = new ymaps.Placemark([55.608729, 37.210923],
+                    {}, {
+                        preset: 'islands#redIcon'
+                    });
+                myMap.geoObjects.add(address);
+                address = new ymaps.Placemark([55.656875, 37.963747]);
+                myMap.geoObjects.add(address);
+            }
+        }
+    });
+
+// Wavify
+        var wavePrimary = $('#waveP').wavify({
+        height: 50,
+        bones: 3,
+        amplitude: 50,
+        color: 'rgba(255, 255, 255, 1)',
+        speed: 0.25,
+        });
+
+        var wavePrimary = $('#waveS1').wavify({
+        height: 50,
+        bones: 3,
+        amplitude: 50,
+        color: 'rgba(13,172,144)',
+        speed: 0.25,
+        });
+
+        var waveSecondary2 = $('#waveS2').wavify({
+        height: 50,
+        bones: 3,
+        amplitude: 50,
+        color: 'rgba(255,255,255)',
+        speed: 0.25,
+        });
+
+// Modal
+        // get the closing button
+        var span = document.getElementsByClassName("close")[0];
+
+        // get the modal
+        var modal = document.getElementById("myModal");
+
+        // get the open button
+        var btn = document.getElementById("myBtn");
+
+        // open modal button
+        btn.onclick = function() {  
+        modal.style.display = "block";
+        var $body = $(document.body);
+        var oldWidth = $body.innerWidth();
+        $body.css("overflow", "hidden");
+        $body.width(oldWidth);
+        }
+
+        // closing modal button
+        span.onclick = function() {
+        modal.style.display = "none";
+        var $body = $(document.body);
+        $body.css("overflow", "auto");
+        $body.width("auto");
+        }
+
+        // closing modal on outside click
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        }
+
+</script>
+</body>
+</html>
